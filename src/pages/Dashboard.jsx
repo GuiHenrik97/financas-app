@@ -3,6 +3,7 @@ import useFinancas from "../store/financas";
 import { supabase } from "../lib/supabase";
 import CardTransacao from "../components/CardTransacao";
 import FormTransacao from "../components/FormTransacao";
+import GraficoGastos from "../components/GraficoGastos";
 
 function Dashboard() {
   const { transacoes, setTransacoes, adicionarTransacao, removerTransacao } =
@@ -80,7 +81,7 @@ function Dashboard() {
           Carregando transações...
         </p>
       )}
-
+      <GraficoGastos transacoes={transacoes} />
       <FormTransacao onAdicionar={handleAdicionar} />
 
       <div className="flex flex-col gap-3">
