@@ -9,10 +9,16 @@ function Dashboard() {
   const { transacoes, setTransacoes, adicionarTransacao, removerTransacao } =
     useFinancas();
   const [loading, setLoading] = useState(true);
+  const [filtro, setFiltro] = useState("todos");
 
   const saldo = transacoes.reduce((acc, t) => {
     return t.tipo === "receita" ? acc + t.valor : acc - t.valor;
   }, 0);
+
+  const transacoesFiltradas = transacoes.filter((t) => {
+    if (filtro === "todos") return true;
+    return t.tipo === filtro;
+  });
 
   useEffect(() => {
     async function buscarTransacoes() {
@@ -81,16 +87,38 @@ function Dashboard() {
           Carregando transações...
         </p>
       )}
+
       <GraficoGastos transacoes={transacoes} />
+
+      <div className="flex gap-2">
+        {["todos", "receita", "despesa"].map((f) => (
+          <button
+            key={f}
+            onClick={() => setFiltro(f)}
+            className={`px-4 py-1.5 rounded-lg text-sm border ${
+              filtro === f
+                ? "bg-gray-800 text-white border-gray-800"
+                : "bg-white text-gray-600 border-gray-200"
+            }`}
+          >
+            {f === "todos"
+              ? "Todos"
+              : f === "receita"
+                ? "Receitas"
+                : "Despesas"}
+          </button>
+        ))}
+      </div>
+
       <FormTransacao onAdicionar={handleAdicionar} />
 
       <div className="flex flex-col gap-3">
-        {transacoes.length === 0 && (
+        {transacoesFiltradas.length === 0 && (
           <p className="text-center text-gray-400 text-sm py-8">
             Nenhuma transação ainda.
           </p>
         )}
-        {transacoes.map((t) => (
+        {transacoesFiltradas.map((t) => (
           <CardTransacao
             key={t.id}
             descricao={t.descricao}
