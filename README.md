@@ -43,4 +43,4 @@ VITE_SUPABASE_ANON_KEY=
 
 ## Deploy
 
-Em breve — [financas-app.vercel.app](https://financas-app.vercel.app)
+[financas-app-topaz-eta.vercel.app](https://financas-app-topaz-eta.vercel.app)
