@@ -121,6 +121,7 @@ function Dashboard() {
         {transacoesFiltradas.map((t) => (
           <CardTransacao
             key={t.id}
+            id={t.id}
             descricao={t.descricao}
             valor={t.valor}
             tipo={t.tipo}
